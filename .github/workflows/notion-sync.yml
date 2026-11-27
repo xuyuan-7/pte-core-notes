@@ -1,0 +1,35 @@
+name: Sync PTE Core from Notion
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: notion-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.ref == 'refs/heads/main' && github.repository == 'xuyuan-7/pte-core-notes'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+      - name: Fetch approved Notion pages
+        env:
+          NOTION_SYNC_CONFIG: ${{ secrets.NOTION_SYNC_CONFIG }}
+        run: node .github/scripts/notion-sync.mjs
+      - name: Publish changed notes
+        run: |
+          git add -A -- notes
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git -c user.name='github-actions[bot]' \
+              -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+              commit -m 'Sync PTE Core notes from Notion'
+          git push origin HEAD:refs/heads/main
