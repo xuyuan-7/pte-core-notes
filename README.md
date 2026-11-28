@@ -9,3 +9,4 @@
 - [✉️ PTE Core｜WE写作专项：历次范文＋三套通用模板](./notes/write-email-examples.md)
 - [🔁 PTE Core｜反复遗忘清单（语法与固定搭配）](./notes/recurring-mistakes.md)
 - [🎯 PTE Core｜CLB9考前验收标准与自查清单（12月5日首考）](./notes/exam-readiness-checklist.md)
+- [⭐ PTE Core｜考前必背固定搭配](./notes/essential-collocations.md)
